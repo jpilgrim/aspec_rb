@@ -11,7 +11,7 @@ prefix = ''
 # @example Block Use
 #   Already completed. task::101[]
 # @example Configuration
-# task_def_DM-: Jira;DataModel Backlog;https://jira.organisation.com/browse
+# :task_def_OPR-: Jira;OPR Backlog;https://jira.numberfour.eu/browse/OPR-{TASK_ID};images/icons/jira.png;OPR-{TASK_ID}
 # task_def_GH-: GitHub;Project GitHub Issues;https://github.organisation.com/MyOrg/repo/issues
 Extensions.register do
   inline_macro do
@@ -26,10 +26,10 @@ Extensions.register do
         next unless key[/^task_def_/]
         prefix = key.sub(/^task_def_/, '')
         if dest == prefix
-          type, tip, pa = value.match(/^([^^]+)\;([^^]+)\;([^^]+)/).captures
-          target.gsub!(/#{dest}/i, '') if type[/GitHub/]
+          type, tip, patt, icon, id = value.match(/^([^^]+)\;([^^]+)\;([^^]+)\;([^^]+)\;([^^]+)/).captures
+          patt.gsub!(/\/(\w+?-)?{.+?}/, '')
+          pattern = patt
         end
-        pattern = pa
       end
 
       if pattern.nil?

@@ -37,13 +37,13 @@ class MultipageHtml5Converter
     master_content << %(= #{node.doctitle})
     master_content << (node.attr 'author') if node.attr? 'author'
     master_content << ''
-    @documents.each do |doc|
-      sect = doc.blocks[0]
-      sectnum = sect.numbered && !sect.caption ? %(#{sect.sectnum} ) : nil
-      filename = doc.attr 'docname'
-      filename = filename.sub(/^_/, '')
-      master_content << %(== <<#{filename}#,#{sectnum}#{sect.captioned_title}>> +)
-    end
+    # @documents.each do |doc|
+    #   sect = doc.blocks[0]
+    #   sectnum = sect.numbered && !sect.caption ? %(#{sect.sectnum} ) : nil
+    #   filename = doc.attr 'docname'
+    #   filename = filename.sub(/^_/, '')
+    #   master_content << %(== <<#{filename}#,#{sectnum}#{sect.captioned_title}>> +)
+    # end
     master_content << ''
     master_content << 'requirements::[]'
     Asciidoctor.convert master_content, doctype: node.doctype, header_footer: true, safe: node.safe, attributes: indexconfigs

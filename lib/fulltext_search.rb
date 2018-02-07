@@ -1,5 +1,6 @@
 require 'asciidoctor'
 require 'nokogiri'
+require 'fileutils'
 require 'open-uri'
 
 json = ''
