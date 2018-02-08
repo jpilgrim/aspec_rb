@@ -1,6 +1,6 @@
 require 'asciidoctor'
 require 'test/unit'
-require_relative '../lib/aspec/inline_task_macro'
+require_relative '../lib/extensions/inline_task_macro'
 
 class TestInlineTaskMacroProcessor < Test::Unit::TestCase
   def test_without_pattern
@@ -33,16 +33,16 @@ class TestInlineTaskMacroProcessor < Test::Unit::TestCase
   end
 
   def test_inline_github_pattern
-    input = ":task_def_GH-: GitHub;Project GitHub Issues;https://github.organisation.com/MyOrg/repo/issues \ntask:GH-123[]"
+    input = ":task_def_GH-: GitHub;OPR GitHub Issues;https://github.numberfour.eu/NumberFour/onlinepresence/issues/{TASK_ID};images/icons/github.png;GH-{TASK_ID} \ntask:GH-123[]"
 
-    assert_equal("<div class=\"paragraph\">\n<p><a href=\"https://github.organisation.com/MyOrg/repo/issues/123\"><span class=\"label label-default\">123</span></a></p>\n</div>",
+    assert_equal("<div class=\"paragraph\">\n<p><a href=\"https://github.numberfour.eu/NumberFour/onlinepresence/issues/GH-123\"><span class=\"label label-default\">GH-123</span></a></p>\n</div>",
                  Asciidoctor::Document.new(input).render)
   end
 
   def test_inline_jira_pattern
-    input = ":task_def_DM-: Jira;DataModel Backlog;https://jira.organisation.com/browse\ntask:DM-123[]"
+    input = ":task_def_DM-: Jira;DataModel Backlog;https://jira.numberfour.eu/browse/DM-{TASK_ID};images/icons/jira.png;DM-{TASK_ID}\ntask:DM-123[]"
 
-    assert_equal("<div class=\"paragraph\">\n<p><a href=\"https://jira.organisation.com/browse/DM-123\"><span class=\"label label-default\">DM-123</span></a></p>\n</div>",
+    assert_equal("<div class=\"paragraph\">\n<p><a href=\"https://jira.numberfour.eu/browse/DM-123\"><span class=\"label label-default\">DM-123</span></a></p>\n</div>",
                  Asciidoctor::Document.new(input).render)
   end
 end

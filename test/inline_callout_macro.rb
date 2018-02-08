@@ -1,6 +1,6 @@
 require 'asciidoctor'
 require 'test/unit'
-require_relative '../lib/aspec/inline_callout_macro'
+require_relative '../lib/extensions/inline_callout_macro'
 
 class TestInlineCalloutMacroProcessor < Test::Unit::TestCase
   def test_single

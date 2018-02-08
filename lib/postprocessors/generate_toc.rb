@@ -17,7 +17,6 @@ style="margin-left: 18px;">
 }
 
 html_files = Dir.glob("#{gendir}/**/*.html")
-
 anchors, sections, appendices = [], [], []
 
 html_files.each do |file|

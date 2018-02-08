@@ -1,4 +1,3 @@
-require 'asciidoctor'
 require 'nokogiri'
 require 'fileutils'
 require 'open-uri'
@@ -47,4 +46,3 @@ filtered_data = data.sub(marker, jsonindex)
 File.open(searchpage, 'w') do |f|
   f.write(filtered_data)
 end
-

@@ -1,4 +1,4 @@
-require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+require 'asciidoctor/extensions'
 require_relative 'utils/labels'
 require_relative 'utils/block'
 
@@ -12,7 +12,7 @@ prefix = ''
 #   Already completed. task::101[]
 # @example Configuration
 # :task_def_OPR-: Jira;OPR Backlog;https://jira.numberfour.eu/browse/OPR-{TASK_ID};images/icons/jira.png;OPR-{TASK_ID}
-# task_def_GH-: GitHub;Project GitHub Issues;https://github.organisation.com/MyOrg/repo/issues
+# :task_def_GH-: GitHub;Project GitHub Issues;https://github.organisation.com/MyOrg/repo/issues
 Extensions.register do
   inline_macro do
     named :task

@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'asciidoctor'
-require_relative '../lib/aspec/requirement_appendix'
+require_relative '../lib/extensions/requirement_appendix'
 
 include ::Asciidoctor
 
