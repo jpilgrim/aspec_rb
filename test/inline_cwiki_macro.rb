@@ -1,6 +1,6 @@
 require 'asciidoctor'
 require 'test/unit'
-require_relative '../lib/aspec/inline_cwiki_macro'
+require_relative '../lib/extensions/inline_cwiki_macro'
 
 class TestInlineCwikiMacroProcessor < Test::Unit::TestCase
   def test_missing_config

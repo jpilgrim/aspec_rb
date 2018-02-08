@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'asciidoctor'
-require_relative '../lib/aspec/requirement_block'
+require_relative '../lib/extensions/requirement_block'
 
 class TestDefintionBlock < Test::Unit::TestCase
   def test_delimited_with_title

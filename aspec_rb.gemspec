@@ -1,11 +1,11 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'aspec/version'
+require 'aspec_rb/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'aspec_gem'
-  spec.version       = Aspec::VERSION
+  spec.name          = 'aspec_rb'
+  spec.version       = AspecRb::VERSION
   spec.authors       = ['bsmith-n4']
   spec.email         = ['brian.smith@numberfour.eu']
 
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
                           resolving the location of titles and anchors in all adoc files so that inter-document
                           cross-references in a Jekyll project are resolved automatically. Also included are some
                           custom macros and blocks that are useful for techinical writing.'
-  spec.homepage      = 'https://github.com/bsmith-n4/aspec_gem'
+  spec.homepage      = 'https://github.com/bsmith-n4/aspec_rb'
   spec.license       = 'MIT'
 
   # This gem will work with 2.0 or greater.

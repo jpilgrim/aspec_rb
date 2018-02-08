@@ -2,7 +2,7 @@ require 'asciidoctor'
 require 'asciidoctor/extensions'
 
 exts = "(\.adoc|\.md|\.html)"
-docsdir = '_docs'
+docsdir = 'chapters'
 
 title = nil
 chapter = nil
@@ -18,7 +18,7 @@ CommentBlockRx = %r(^\/{4,}$)
 CommentLineRx = %r{^//(?=[^/]|$)}
 
 def trim(s)
-  s.gsub!(/_docs\//, '')
+  s.gsub!(/chapters\//, '')
   s.gsub!(/(\.adoc|\.md|\.html)/, '')
 end
 
@@ -72,7 +72,7 @@ reqs.each do |req, f, title, chapter, doctitle|
   rid = /[^,]*\s*id\s*=\s*(\w+-?[0-9]+)\s*,.*/.match(req)[1]
   version = /(?<=version=)\d+/.match(req)
 
-  f.gsub!(/^_docs\//, '')
+  f.gsub!(/^chapters\//, '')
   f.gsub!(/.adoc$/, '')
 
   $reqfixes.each do |id, fix|

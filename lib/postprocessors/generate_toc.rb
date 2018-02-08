@@ -1,6 +1,9 @@
 require 'nokogiri'
 require 'open-uri'
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 # This marker should be in the target document where the TOC will be placed.
 marker = '---TOC---'
 gendir = 'generated-docs' # TODO: - do not hardcode
@@ -14,7 +17,6 @@ style="margin-left: 18px;">
 }
 
 html_files = Dir.glob("#{gendir}/**/*.html")
-
 anchors, sections, appendices = [], [], []
 
 html_files.each do |file|

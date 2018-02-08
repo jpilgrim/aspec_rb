@@ -1,6 +1,6 @@
 require 'asciidoctor'
 require 'test/unit'
-require_relative '../lib/aspec/inline_repo_macro'
+require_relative '../lib/extensions/inline_repo_macro'
 
 class TestInlineRepoMacro < Test::Unit::TestCase
   def test_without_pattern

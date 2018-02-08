@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'asciidoctor'
-require_relative '../lib/aspec/todo_block'
+require_relative '../lib/extensions/todo_block'
 
 class TestTodoBlock < Test::Unit::TestCase
   def test_simple
