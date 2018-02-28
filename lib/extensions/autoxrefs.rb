@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'asciidoctor/extensions'
 require_relative 'utils/scanner'
 
