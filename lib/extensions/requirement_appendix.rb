@@ -82,9 +82,12 @@ reqs.each do |req, f, title, chapter, doctitle|
   end
 
   f = f.sub(/^chapters\//, '')
-  ref = "<a class=\"link\" href=\"#{link}\"><emphasis role=\"strong\">#{title}</emphasis>  </a>"
+  icon = "<i class=\"fa fa-external-link-square\" aria-hidden=\"true\"></i>"
+  ref = "<a class=\"link\" href=\"#{link}\"><emphasis role=\"strong\">#{icon} #{title}</emphasis>  </a>"
   breadcrumb = "<a href=\"#{f}\">#{chapter} / #{doctitle}</a>"
-  row = "<tr> <th scope=\"row\">#{i}</th> <td style=\"white-space:pre;\">#{rid}</td><td>#{version}</td> <td>#{ref}</td> <td>#{f}</td> </tr>"
+  anchor = "<a class=\"link\" href=\"#Req-#{rid}\">#{rid}</a>"
+  row = %(<tr id="Req-#{rid}"> <th scope="row">#{i}</th> <td style="white-space:pre;">#{anchor}</td>
+  <td>#{version}</td> <td>#{ref}</td> <td>#{f}</td> </tr>)
 
   rows.push(row)
 end
@@ -92,7 +95,8 @@ end
 Asciidoctor::Extensions.register do
   block_macro :requirements do
     process do |parent, _target, _attrs|
-      content = %(<h2 id="requirements"><a class="anchor" href="#requirements"></a><a class="link" href="#requirements">Requirements</a></h2>
+      content = %(<h2 id="requirements"><a class="anchor" href="#requirements"></a>
+      <a class="link" href="#requirements">Requirements</a></h2>
 <div class="panel panel-default"> <div class="panel-heading"><h4>Requirements</h4></div>
 <table class="table"> <thead> <tr>
 <th>#</th> <th>ID</th><th>Version</th> <th>Title</th> <th>Source Document</th>
