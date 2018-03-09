@@ -96,9 +96,8 @@ class MultipageHtml5Converter
         f.write doc.convert
       end
     end
-    chunked_target = target.gsub(/(\.[^.]+)$/, '-chunked\1')
-    puts "[HTML INDEX] Generating index at #{chunked_target}"
-    ::File.open(chunked_target, 'w') do |f|
+    puts "[HTML INDEX] Generating index at #{target}"
+    ::File.open(target, 'w') do |f|
       f.write output
     end
     load "postprocessors/generate_toc.rb"
