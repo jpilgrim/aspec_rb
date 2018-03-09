@@ -12,7 +12,6 @@ inc_reqs = []
 rows = []
 coms = []
 reqs = []
-reqfixes = []
 
 CommentBlockRx = %r(^\/{4,}$)
 CommentLineRx = %r{^//(?=[^/]|$)}
@@ -81,6 +80,7 @@ reqs.each do |req, f, title, chapter, doctitle|
     break
   end
 
+  link = link.sub(/^_/, '') if link[/^_/]
   f = f.sub(/^chapters\//, '')
   icon = "<i class=\"fa fa-external-link-square\" aria-hidden=\"true\"></i>"
   ref = "<a class=\"link\" href=\"#{link}\"><emphasis role=\"strong\">#{icon} #{title}</emphasis>  </a>"
