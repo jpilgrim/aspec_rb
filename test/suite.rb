@@ -1,3 +1,4 @@
+require_relative 'test_helper'
 require_relative 'requirement_block'
 # require_relative 'requirement_appendix'
 require_relative 'todo_block'
