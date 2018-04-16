@@ -1,8 +1,9 @@
 # aspec_rb
 
-[![Gem Version](https://badge.fury.io/rb/aspec_rb.svg)](https://badge.fury.io/rb/aspec_rb)
 [![Build Status](https://travis-ci.org/tcob/aspec_rb.svg?branch=master)](https://travis-ci.org/tcob/aspec_rb)
-
+[![Gem Version](https://badge.fury.io/rb/aspec_rb.svg)](https://badge.fury.io/rb/aspec_rb)
+[![Maintainability](https://api.codeclimate.com/v1/badges/11ef540aabef88117720/maintainability)](https://codeclimate.com/github/tcob/aspec_rb/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/11ef540aabef88117720/test_coverage)](https://codeclimate.com/github/tcob/aspec_rb/test_coverage)
 ## Installation
 
 ```
