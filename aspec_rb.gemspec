@@ -6,7 +6,7 @@ require 'aspec_rb/version'
 Gem::Specification.new do |spec|
   spec.name          = 'aspec_rb'
   spec.version       = AspecRb::VERSION
-  spec.authors       = ['bsmith-n4']
+  spec.authors       = ['tcob']
   spec.email         = ['brian.smith@numberfour.eu']
 
   spec.summary       = 'Asciidoctor extensions for large HTML documents'
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
                           resolving the location of titles and anchors in all adoc files so that inter-document
                           cross-references are resolved automatically. Also included are some
                           custom macros and blocks that are useful for techinical writing.'
-  spec.homepage      = 'https://github.com/bsmith-n4/aspec_rb'
+  spec.homepage      = 'https://github.com/tcob/aspec_rb'
   spec.license       = 'MIT'
 
   # This gem will work with 2.0 or greater.
