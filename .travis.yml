@@ -18,6 +18,5 @@ env:
 #   - secure: DLnzaQqvtjrG2b5VZ4M8IZhdGPNAPEb5BaO7iSlkV9HFp4us/KB7w2DVzE70U/a1eastll+kP5C+pBPkMGAYBbdVzAaB8qj3aAmuPvUoOs69b7RJftYsAJwO0c29lt/dz4rxLfKQluaVwTu/UM0NMyCVOePdF+pxSYxpOgkckGZhfknuzY1PP/QFEZKoo37FhG8gQGtzjItnIQ2C7zYH3lTkRrOgcpzq3HF0PAMtMercv/TTl8mB1sSXHr5EDfM5SWsc58Sh/p/BG9UQpLG/2J8f7IKfSgSa+T7j+ki1mog9PokFRRlS8I5l4MQa5GpxvNDM6yjo5oRpBVjGvOft8XwymG99SwUFCMKooydZ4RCc4nQFxjTtlc0g118pNnUmHmXKfCadMCExFqqbo3tllRIjUZm2qUnMuwCoAtPFSCRvbKjHk6Rlg6V0hBy8mLCFr5EaSAoW7wtKBlocfKs+uDKIyX+MFG7x4Q2etKxO8UTKWqCSJcweLw/1OnTqFPU9RA8YEzLZKsg+gEKa4MtCIV1hwer6qDWr/eWTW3H2SlHym+ifLFmYbR7maRLbZV8cg5AB2NuTMPPJD3BfVL2s8lVWo1VoxioV2BPA8o3owdfS+AvJW/uZof8RGeznTRx3i2xEFU+FNGj8tXl1TJvdr6HRVt/BI+UAq0Su9zk1E4o=
 script:
 - bundle exec rake test
-- bundle exec rake rubocop
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
