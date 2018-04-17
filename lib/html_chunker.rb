@@ -103,9 +103,3 @@ class MultipageHtml5Converter
     load 'postprocessors/fulltext_search.rb'
   end
 end
-     f.write output
-    end
-    load "postprocessors/generate_toc.rb"
-    load "postprocessors/fulltext_search.rb"
-  end
-end
