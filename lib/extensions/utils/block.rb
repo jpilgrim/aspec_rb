@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Helper methods handling whether to output inline content or a block.
 # Will read the attributes of the current macro and output a HTML string that is either
 # inline or a block (float-right).
@@ -23,14 +25,14 @@ module Context
                "<div style=\"float:right;padding-left:0.1em;\"><span class=\"label label-#{label}\" data-toggle=\"tooltip\" title=\"Missing config\">#{target}</span></div>"
              else
                "<div style=\"float:right;padding-left:0.1em;\"><a href=\"#{url}\"><span class=\"label label-#{label}\">#{target}</span></a></div>"
-                    end
+             end
            else
              if pattern == 'unknown'
                "<span class=\"label label-#{label}\" data-toggle=\"tooltip\" title=\"Missing config\">#{target}</span>"
              else
                "<a href=\"#{url}\"><span class=\"label label-#{label}\">#{target}</span></a>"
-                    end
-           end
+             end
+            end
     html
   end
 end

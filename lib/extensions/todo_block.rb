@@ -1,6 +1,6 @@
-require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+# frozen_string_literal: true
 
-include ::Asciidoctor
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
 Extensions.register do
   block do

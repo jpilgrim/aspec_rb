@@ -1,26 +1,20 @@
+# frozen_string_literal: true
+
 require 'asciidoctor/extensions'
-require_relative 'utils/scanner'
+require_relative 'utils/utils'
 
 include ::Asciidoctor
 
 # Read from config file - do NOT hard code the srcdir
 $srcdir = 'chapters'
-invoc = Dir.pwd
 
 AnchorRx = /\[\[(?:|([\w+?_:][\w+?:.-]*)(?:, *(.+))?)\]\]/
 
-indexincludes, ni_includes, includes, doclinks, anchorfixes, intrachapter, interchapter, anchors, xrefs = Array.new(10) { [] }
+ni_includes, includes, doclinks, anchorfixes, intrachapter, interchapter, anchors, xrefs = Array.new(9) { [] }
 
 adoc_files = Dir.glob("#{$srcdir}/**/*.adoc")
 
-# From the index, create an array of the main chapters
-File.read('index.adoc').each_line do |li|
-  if li[IncludeDirectiveRx]
-    doc = li.match(/(?<=^include::).+?\.adoc(?=\[\])/).to_s
-    doc = doc.sub(/^\{find\}/, '')
-    indexincludes.push(doc) unless doc == 'config'
-  end
-end
+indexincludes = Index.includes
 
 adoc_files.each do |filename|
   main = false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A simple helper method handles the status of the target text.
 # This is used to display whether a GitHub issue or a Jira ticket
 # is open or closed etc.

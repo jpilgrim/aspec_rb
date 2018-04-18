@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 module Sform
-  def self.trim(s)
-    s = s.gsub(/^#{$srcdir}\//, '') unless s.nil?
-    s = s.gsub(/(\.adoc)/, '') unless s.nil?
+  def self.trim(string)
+    string = string.gsub(/^#{$srcdir}\//, '') unless string.nil?
+    string = string.gsub(/(\.adoc)/, '') unless string.nil?
   end
 
-  def self.underscorify(t)
-    t = t.downcase.gsub(/(\s|-)/, '_')
+  def self.underscorify(title)
+    title = title.downcase.gsub(/(\s|-)/, '_')
     # document attribute idprefix must be seet to empty, if not
     # the default value is an underscore and the following line is required
     # t = t.prepend('_') unless t.match(/^_/)
-    t = t.gsub(/___/, '_').delete('`')
+    title = title.gsub(/___/, '_').delete('`')
   end
 
-  def self.titleify(t)
-    t = t.tr('_', ' ')
-    t = t.lstrip
-    t = t.split.map(&:capitalize).join(' ')
+  def self.titleify(title)
+    title = title.tr('_', ' ')
+    title = title.lstrip
+    title = title.split.map(&:capitalize).join(' ')
   end
 end

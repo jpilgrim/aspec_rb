@@ -1,5 +1,7 @@
 
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'aspec_rb/version'
 
@@ -17,8 +19,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/tcob/aspec_rb'
   spec.license       = 'MIT'
 
-  # This gem will work with 2.0 or greater.
-  spec.required_ruby_version = '>= 2.0'
+  # This gem will work with 2.3 or greater.
+  spec.required_ruby_version = '>= 2.3'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
@@ -27,8 +29,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '>= 1.15.4'
-  spec.add_development_dependency 'rake', '>= 12.1.0'
-  spec.add_development_dependency 'test-unit', '>=3.2.6'
-  spec.add_runtime_dependency 'asciidoctor', '>= 1.5.0'
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'test-unit'
+  spec.add_runtime_dependency 'asciidoctor'
 end

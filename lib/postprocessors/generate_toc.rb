@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 require 'open-uri'
 
@@ -17,7 +19,9 @@ style="margin-left: 18px;">
 }
 
 html_files = Dir.glob("#{gendir}/**/*.html")
-anchors, sections, appendices = [], [], []
+anchors = []
+sections = []
+appendices = []
 
 html_files.each do |file|
   next if file == "#{gendir}/search.html" || file[%r{^#{gendir}\/index}]
@@ -71,7 +75,7 @@ anchors.each do |file, id, text, level|
   if level > prev_level
     if i != 0
       toc = toc.chomp("</li>\n")
-      toc += " <a href=\"#\" data-toggle=\"collapse\" data-target=\"#tocnav_#{id}\"></a>
+      toc += " <a href=\"#\" data-toggle=\"collapse\" data-target=\"#tocnav_#{id}\"><i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i></a>
       <ul>
       <div id=\"tocnav_#{id}\" class=\"collapse\">
       <li><a href=\"#{file}##{id}\">#{text}</a></li>\n"
