@@ -1,6 +1,6 @@
-require 'asciidoctor/extensions'
+# frozen_string_literal: true
 
-include ::Asciidoctor
+require 'asciidoctor/extensions'
 
 # @example Basic Usage
 #   See call:1[] for details

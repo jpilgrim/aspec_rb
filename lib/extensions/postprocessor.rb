@@ -1,6 +1,6 @@
-require 'asciidoctor/extensions'
+# frozen_string_literal: true
 
-include ::Asciidoctor
+require 'asciidoctor/extensions'
 
 jquery = '<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>'
 lt_gt = '(&gt;&gt;|&lt;&lt;)'

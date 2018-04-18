@@ -1,6 +1,6 @@
-require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+# frozen_string_literal: true
 
-include ::Asciidoctor
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
 # Link to a file on GitHub.
 #
@@ -24,14 +24,10 @@ Extensions.register do
 
     process do |parent, target, attrs|
       html = ''
-      url = ''
       file = ''
       line = ''
       formattedurl = ''
-      text = ''
       arr = []
-
-      # @todo fix handling of use within cells. This is done using the context.
 
       if parent.context.to_s == 'cell'
         warn %([Hell in a cell] cell with repo link must have 'asciidoc format')

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'asciidoctor/extensions'
-require_relative 'utils/scanner'
+require_relative 'utils/utils'
 
 # test using ruby benchmark
 
@@ -13,16 +15,11 @@ $doclinks = []
 adoc_files = Dir.glob("#{$srcdir}/**/*.adoc")
 
 # Find a nicer way to initialize some arrays:
-ssincs, ni_includes, includes, doclinksfix, docs, titles, mainchaps, indexincludes, xrefs = Array.new(10) { [] }
+ni_includes, includes, doclinksfix, docs, titles, mainchaps, xrefs = Array.new(8) { [] }
+
 $reqfixes = []
 
-# From the index, create an array of the main chapters
-File.read('index.adoc').each_line do |li|
-  next unless li[IncludeDirectiveRx]
-  doc = li.match(/(?<=^include::).+?\.adoc(?=\[\])/).to_s
-  doc = doc.sub(/^\{find\}/, '')
-  indexincludes.push(doc) unless doc == 'config'
-end
+indexincludes = Index.includes
 
 adoc_files.sort!
 adoc_files.each do |filename|
@@ -137,8 +134,8 @@ $reqs.sort_by!(&:first)
 # For all requirements, check which chapter they should finally be in with includes catered for
 # match with a main document name - should be a main chapter title
 $reqs.each do |rid, _line, path, _filename, _main, _chapter|
-  $doclinks.each do |_doc, link, chapter|
-    next unless path == "#{chapter}/#{_doc}"
+  $doclinks.each do |doc, link, chapter|
+    next unless path == "#{chapter}/#{doc}"
     $reqfixes.push([rid, link])
     break
   end

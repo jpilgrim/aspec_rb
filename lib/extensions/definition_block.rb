@@ -1,6 +1,6 @@
-require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+# frozen_string_literal: true
 
-include ::Asciidoctor
+require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
 Extensions.register do
   block do
@@ -19,9 +19,8 @@ Extensions.register do
         #    Also replacing special HTML entities:
         #    &quot; = "
         #    &amp;  = &
-        downcased_title = attrs['title'].downcase.tr(' ', '_').gsub('"', '&quot;')
         san_title = attrs['title'].gsub(/&/, '&amp;').delete('`').delete("'").delete('*')
-      rescue Exception => msg
+      rescue StandardError => msg
         puts msg
         # If no title exists on the Def block, throw an exception
         puts '[ERROR] Definition block title missing'
