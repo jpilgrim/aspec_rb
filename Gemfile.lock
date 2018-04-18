@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     aspec_rb (0.0.6)
-      asciidoctor (>= 1.5.0)
+      asciidoctor
 
 GEM
   remote: https://rubygems.org/
@@ -25,10 +25,10 @@ PLATFORMS
 
 DEPENDENCIES
   aspec_rb!
-  bundler (>= 1.15.4)
-  rake (>= 12.1.0)
+  bundler
+  rake
   simplecov
-  test-unit (>= 3.2.6)
+  test-unit
 
 BUNDLED WITH
    1.16.1
