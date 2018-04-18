@@ -5,9 +5,7 @@ module Index
     # From the index, create an array of the main chapters
     @indexincludes = []
     File.read('index.adoc').each_line do |line|
-      next unless line[IncludeDirectiveRx]
-      doc = match_include(line).sub(/^\{find\}/, '')
-      @indexincludes.push(doc) unless doc == 'config'
+      @indexincludes.push(match_include(line).sub(/^\{find\}/, '')) if line[IncludeDirectiveRx]
     end
     @indexincludes
   end
