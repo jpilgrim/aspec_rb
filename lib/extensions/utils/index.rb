@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
 module Index
+  # From the index, create an array of the main chapters
   def self.includes
-    # From the index, create an array of the main chapters
     @indexincludes = []
-    File.read('index.adoc').each_line do |li|
-      next unless li[IncludeDirectiveRx]
-      doc = li.match(/(?<=^include::).+?\.adoc(?=\[\])/).to_s
-      doc = doc.sub(/^\{find\}/, '')
-      @indexincludes.push(doc) unless doc == 'config'
+    File.read('index.adoc').each_line do |line|
+      next unless line[IncludeDirectiveRx]
+      @indexincludes.push(match_include(line).sub(/^\{find\}/, '')) unless doc == 'config'
     end
     @indexincludes
+  end
+
+  def match_include(line)
+    line.match(/(?<=^include::).+?\.adoc(?=\[\])/).to_s
   end
 end

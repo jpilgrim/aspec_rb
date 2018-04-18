@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
 
 include ::Asciidoctor
