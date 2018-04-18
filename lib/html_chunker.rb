@@ -65,15 +65,16 @@ class MultipageHtml5Converter
         block.columns.each do |col|
           col.parent = col.parent
         end
-        block.rows.body = block.rows.body.map { |row|
+        block.rows.body = block.rows.body.map do |row|
           row.map do |cell|
             if cell.attributes['style'] == :asciidoc
-              Asciidoctor::Table::Cell.new cell.column, cell.text, cell.attributes
+              text = cell.instance_variable_get(:@text)
+              Asciidoctor::Table::Cell.new cell.column, text, cell.attributes
             else
               cell
             end
           end
-        }
+        end
       elsif block.context == :dlist
         block.parent = parent
         block.items.each do |i|
