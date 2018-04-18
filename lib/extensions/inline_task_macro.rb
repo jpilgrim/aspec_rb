@@ -25,11 +25,10 @@ Extensions.register do
       parent.document.attributes.each do |key, value|
         next unless key[/^task_def_/]
         prefix = key.sub(/^task_def_/, '')
-        if dest == prefix
-          type, tip, patt, icon, id = value.match(/^([^^]+)\;([^^]+)\;([^^]+)\;([^^]+)\;([^^]+)/).captures
-          patt.gsub!(/\/(\w+?-)?{.+?}/, '')
-          pattern = patt
-        end
+        next unless dest == prefix
+        type, tip, patt, icon, id = value.match(/^([^^]+)\;([^^]+)\;([^^]+)\;([^^]+)\;([^^]+)/).captures
+        patt.gsub!(/\/(\w+?-)?{.+?}/, '')
+        pattern = patt
       end
 
       if pattern.nil?

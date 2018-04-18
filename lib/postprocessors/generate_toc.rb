@@ -17,7 +17,9 @@ style="margin-left: 18px;">
 }
 
 html_files = Dir.glob("#{gendir}/**/*.html")
-anchors, sections, appendices = [], [], []
+anchors = []
+sections = []
+appendices = []
 
 html_files.each do |file|
   next if file == "#{gendir}/search.html" || file[%r{^#{gendir}\/index}]

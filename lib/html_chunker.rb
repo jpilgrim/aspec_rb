@@ -9,7 +9,7 @@ class MultipageHtml5Converter
   include Asciidoctor::Writer
 
   register_for 'multipage'
-  EOL = "\n"
+  EOL = "\n".freeze
 
   def initialize(backend, opts)
     super

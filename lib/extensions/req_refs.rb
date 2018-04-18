@@ -18,11 +18,10 @@ $reqfixes = []
 
 # From the index, create an array of the main chapters
 File.read('index.adoc').each_line do |li|
-  if li[IncludeDirectiveRx]
-    doc = li.match(/(?<=^include::).+?\.adoc(?=\[\])/).to_s
-    doc = doc.sub(/^\{find\}/, '')
-    indexincludes.push(doc) unless doc == 'config'
-  end
+  next unless li[IncludeDirectiveRx]
+  doc = li.match(/(?<=^include::).+?\.adoc(?=\[\])/).to_s
+  doc = doc.sub(/^\{find\}/, '')
+  indexincludes.push(doc) unless doc == 'config'
 end
 
 adoc_files.sort!
