@@ -1,10 +1,13 @@
 # aspec_rb
 
-[![Build Status](https://travis-ci.org/tcob/aspec_rb.svg?branch=master)](https://travis-ci.org/tcob/aspec_rb)
 [![Gem Version](https://badge.fury.io/rb/aspec_rb.svg)](https://badge.fury.io/rb/aspec_rb)
-[![Maintainability](https://api.codeclimate.com/v1/badges/11ef540aabef88117720/maintainability)](https://codeclimate.com/github/tcob/aspec_rb/maintainability)
+[![Build Status](https://travis-ci.org/tcob/aspec_rb.svg?branch=master)](https://travis-ci.org/tcob/aspec_rb)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/11ef540aabef88117720/test_coverage)](https://codeclimate.com/github/tcob/aspec_rb/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/11ef540aabef88117720/maintainability)](https://codeclimate.com/github/tcob/aspec_rb/maintainability)
+
 ## Installation
+
+Install using Rubygems.org:
 
 ```
 gem install aspec_rb
@@ -18,7 +21,7 @@ asciidoctor -r aspec_rb index.adoc
 
 ## Development
 
-To build a local copy of the gem to the `pkg` directory:
+To build a local copy of the gem:
 
 ```
 rake build
@@ -27,11 +30,13 @@ rake build
 To install from a local build:
 
 ```
-gem install pkg/aspec_rb<version>.gem 
+gem install pkg/aspec_rb<your_version>.gem 
 ```
 
-To release a new version, edit the version number in `lib/aspec_rb/version.rb`, run bundle install to regenerate the `Gemfile.lock`.
-To release this version, use `rake release` command, providing all has been committed. This command builds the gem to the pkg directory in preparation for a push to Rubygems.org.
+### Deployment
+
+To release a new version, edit the version number in `lib/aspec_rb/version.rb` and run `bundle install`.
+Publishing to Rubygems.org is done automatically when a new version is detected on the master branch and Travis builds are green.
 
 ### Testing
 
