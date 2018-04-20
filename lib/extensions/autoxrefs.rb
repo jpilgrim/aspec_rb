@@ -169,6 +169,8 @@ Extensions.register do
             next unless line[/\<\<#{original}(,.+?)?\>\>/]
             line = line.sub(/\<\<#{original}(,.+?)?\>\>/, "icon:angle-double-up[] <<#{fix}>>")
           end
+        elsif line[/^(\=+\s+?\S+.+)/]
+          line.delete!('`')
         end
         line
       }
