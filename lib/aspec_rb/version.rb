@@ -4,5 +4,5 @@
 module AspecRb
   # After updating the version, publishing can be done by running
   # rake release in the project root
-  VERSION = '0.0.6'
+  VERSION = '0.0.7'
 end
