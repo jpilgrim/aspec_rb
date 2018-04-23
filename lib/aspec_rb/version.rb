@@ -2,7 +2,10 @@
 
 # Use this to set global versioning for the RubyGem
 module AspecRb
-  # After updating the version, publishing can be done by running
-  # rake release in the project root
-  VERSION = '0.0.6'
+  # Publish step is done automatically when a new version
+  # lands on master and Travis CI tests are green - https://travis-ci.org/tcob/aspec_rb
+  # For this deploy config, see https://github.com/tcob/aspec_rb/blob/master/.travis.yml
+  #
+  # Manual release can be performed by running 'bundle install && rake release'
+  VERSION = '0.0.7'
 end

@@ -3,6 +3,7 @@
 require 'asciidoctor/extensions'
 require_relative 'utils/utils'
 
+
 include ::Asciidoctor
 
 # Read from config file - do NOT hard code the srcdir
@@ -169,6 +170,8 @@ Extensions.register do
             next unless line[/\<\<#{original}(,.+?)?\>\>/]
             line = line.sub(/\<\<#{original}(,.+?)?\>\>/, "icon:angle-double-up[] <<#{fix}>>")
           end
+        elsif line[/^(\=+\s+?\S+.+)/]
+          line.delete!('`')
         end
         line
       }
