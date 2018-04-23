@@ -3,6 +3,7 @@
 require 'asciidoctor/extensions'
 require_relative 'utils/utils'
 
+
 include ::Asciidoctor
 
 # Read from config file - do NOT hard code the srcdir

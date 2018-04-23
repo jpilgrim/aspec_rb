@@ -24,7 +24,7 @@ class MultipageHtml5Converter
 
   def document(node)
     indexconfigs = {
-      'stylesheet' => 'styles/main.css',
+      'stylesheet!' => true,
       'find' => '',
       'docinfodir' => 'headers',
       'docinfo1' => 'true'
@@ -47,6 +47,7 @@ class MultipageHtml5Converter
     configs['noheader'] = ''
     configs['doctitle'] = node.title
     configs['backend'] = 'html'
+    configs['stylesheet!'] = true
     page = Asciidoctor::Document.new [], header_footer: true, doctype: doc.doctype, safe: doc.safe, parse: true, attributes: configs
 
     page.set_attr 'docname', node.id
