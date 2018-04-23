@@ -3,7 +3,6 @@
 require 'asciidoctor/extensions'
 require_relative 'utils/utils'
 
-
 include ::Asciidoctor
 
 # Read from config file - do NOT hard code the srcdir
@@ -172,6 +171,10 @@ Extensions.register do
           end
         elsif line[/^(\=+\s+?\S+.+)/]
           line.delete!('`')
+        elsif line[/^(\.\S\w+)/]
+          line.delete!('\*_')
+        elsif line[/`.+`\s?::/]
+          2.times { line.sub!(/`/, '') }
         end
         line
       }
