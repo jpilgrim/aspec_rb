@@ -173,6 +173,8 @@ Extensions.register do
           line.delete!('`')
         elsif line[/^(\.\S\w+)/]
           line.delete!('\*_')
+        elsif line[/`.+`\s?::/]
+          2.times {line.sub!(/`/,'')}
         end
         line
       }
