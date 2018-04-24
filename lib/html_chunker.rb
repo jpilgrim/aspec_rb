@@ -101,7 +101,7 @@ class MultipageHtml5Converter
     ::File.open(target, 'w') do |f|
       f.write output
     end
-    load 'postprocessors/generate_toc.rb'
     load 'postprocessors/fulltext_search.rb'
+    load 'postprocessors/generate_toc.rb'
   end
 end

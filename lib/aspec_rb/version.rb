@@ -7,5 +7,5 @@ module AspecRb
   # For this deploy config, see https://github.com/tcob/aspec_rb/blob/master/.travis.yml
   #
   # Manual release can be performed by running 'bundle install && rake release'
-  VERSION = '0.0.9'
+  VERSION = '0.0.10'
 end
