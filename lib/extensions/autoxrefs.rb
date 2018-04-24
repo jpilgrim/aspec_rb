@@ -148,14 +148,14 @@ anchors.uniq!
 
 # For all requirements, check which chapter they should finally be in with includes catered for
 # match with a main document name - should be a main chapter title
-xrefs.each do |xref, xpath, _xfilename, xtext, _xtarget, _xchapter|
+xrefs.each do |xref, xpath, _xfilename, _xtext, xtarget, _xchapter|
   anchors.each do |anchor, apath, afilename, atext, _achapter, _amain, _h1|
     next unless xref == anchor
     # if in same chapter, dont link to other HTML file
     afilename = '' if xpath == apath
-    xtext = Sform.titleify(xref) if xtext.empty?
+    # xtext = xref if xtext.empty?
     afilename.sub!(/^_/, '') if afilename[/^_/]
-    fix = "#{afilename}##{atext},#{xtext}"
+    fix = "#{afilename}##{atext},#{xtarget}"
     anchorfixes.push([anchor, fix, xref])
   end
 end
