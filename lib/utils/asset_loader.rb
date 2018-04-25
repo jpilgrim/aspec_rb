@@ -4,7 +4,7 @@ class AssetLoader
   def initialize
     @header = IO.readlines(File.join(__dir__, '../../assets/html/docinfo.html')).join.to_s
     @footer = IO.readlines(File.join(__dir__, '../../assets/html/docinfo-footer.html')).join.to_s
-    @stylesdir = 'assets/stylesheets'   
+    @stylesdir = 'assets/stylesheets'
     @scriptsdir = 'assets/scripts'
   end
 
