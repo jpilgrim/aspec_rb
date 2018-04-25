@@ -18,12 +18,20 @@ module Context
     end
 
     url = "#{pattern}/#{target}"
-
+ 
     html = if block
-             "<div style=\"float:right;padding-left:0.1em;\"><a href=\"#{url}\"><span class=\"label label-#{label}\">#{target}</span></a></div>"
+             if pattern == 'unknown'
+               "<div style=\"float:right;padding-left:0.1em;\"><span class=\"label label-#{label}\" data-toggle=\"tooltip\" title=\"Missing config\">#{target}</span></div>"
+             else
+               "<div style=\"float:right;padding-left:0.1em;\"><a href=\"#{url}\"><span class=\"label label-#{label}\">#{target}</span></a></div>"
+             end
            else
-             "<a href=\"#{url}\"><span class=\"label label-#{label}\">#{target}</span></a>"
-           end
+             if pattern == 'unknown'
+               "<span class=\"label label-#{label}\" data-toggle=\"tooltip\" title=\"Missing config\">#{target}</span>"
+             else
+               "<a href=\"#{url}\"><span class=\"label label-#{label}\">#{target}</span></a>"
+             end
+            end
     html
   end
 end
