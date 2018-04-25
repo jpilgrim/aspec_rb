@@ -1,8 +1,5 @@
-# frozen_string_literal: true
-
 require 'asciidoctor/extensions'
-require_relative 'utils/labels'
-require_relative 'utils/block'
+require_relative '../utils/utils'
 
 # @example Basic Usage
 #   See task:101[] for details

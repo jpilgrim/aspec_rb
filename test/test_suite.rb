@@ -1,6 +1,9 @@
-require_relative 'test_helper'
-
+require_relative 'test_helper' # don't remove!
+# 
+# ==== Begin tests ====
 # require_relative 'test_convert_doc'
+require_relative 'test_docinfo_processor'
+require_relative 'test_definition_block'
 require_relative 'test_definition_block'
 require_relative 'test_inline_callout_macro'
 require_relative 'test_inline_task_macro'
