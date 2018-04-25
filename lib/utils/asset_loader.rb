@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Loads some static assets like scripts and html templates
 class AssetLoader
   def initialize
     @header = IO.readlines(File.join(__dir__, '../../assets/html/docinfo.html')).join.to_s
@@ -24,5 +25,11 @@ class AssetLoader
       @styles += "<style> #{asset} </style>\n"
     end
     @styles + @footer
+  end
+
+  def create_search_page
+    template = IO.readlines(File.join(__dir__, '../../assets/html/search.html')).join.to_s
+    template = template.sub(/\{\{inject_styles\}\}/, create_header)
+    template.sub(/\{\{inject_scripts\}\}/, create_footer)
   end
 end

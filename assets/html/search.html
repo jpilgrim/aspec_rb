@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+ <meta charset="UTF-8">
+ <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Search</title>
+ <!-- ************* Favicon ************-->
+ <link rel="icon" href="images/favicon.png"/>
+ <!-- ************* Style ( prism / main etc ) ************-->
+
+ {{inject_styles}}
+ 
+ <!-- ************* JQuery ************* -->
+ <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+   crossorigin="anonymous"></script>
+ <!-- ************* Bootstrap JS ************* -->
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+ <!-- ************* Bootstrap Styles (place after bootstrap.js) ************-->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+ <!-- ************* Icons ************-->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+ <!--Table of contents-->
+ <nav id="toc" data-toggle="toc">
+   <form action="search.html" method="get">
+     <input type="text" name="q" id="search-input" placeholder="Full Text Search" autofocus>
+     <input type="submit" value="Search" style="display: none;">
+   </form>
+   <ul class="index nav"><a id="index-link" href="index.html">
+         <i class="fa fa-list-alt" aria-hidden="true"></i>
+      Document Index
+     </a></ul>
+
+{{inject_toc}}
+
+ </nav>
+
+ </head>
+ <body class="article">
+ <div id="header">
+ <h1>Search</h1>
+ </div>
+ <div id="content">
+ <p><span id="search-process">Loading</span> results <span id="search-query-container" style="display: none;">for "<strong id="search-query"></strong>"</span></p>
+ <ul id="search-results"></ul>
+ </div>
+ <script type="text/javascript">
+     $(function () {
+         $('[data-toggle="tooltip"]').tooltip()
+     });
+
+     $('.treeview').treeView();
+
+     // Add the 'toclist' id for search function
+     $(".toc > ul").attr('id', 'toclist');
+
+     // Generate a Search input form
+     $("#toclist > li:first-of-type").before('<i id="clear" class="fa fa-times-circle-o"></i>');
+     $("#clear").click(function(){
+         $("#pagesearch").val('');
+         search();
+     });
+     //
+     $('#pagesearch').on('click', function () {
+         $('.collapse').collapse('toggle');
+     });
+
+ </script>
+
+ <!-- Lunr search -->
+ 
+ {{inject_searchdata}}
+
+ <!--  lunr.js / search.js etc. -->
+ 
+ {{inject_scripts}}
+ 
+ </body>
+ </html>

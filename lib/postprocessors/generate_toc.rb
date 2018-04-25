@@ -7,7 +7,7 @@ Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 # This marker should be in the target document where the TOC will be placed.
-marker = '---TOC---'
+marker = '{{inject_toc}}'
 gendir = 'generated-docs' # TODO: - do not hardcode
 
 # Open a <ul> element
