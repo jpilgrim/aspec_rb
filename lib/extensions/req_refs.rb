@@ -141,7 +141,6 @@ $reqs.each do |rid, _line, path, _filename, _main, _chapter|
   end
 end
 
-# RexRx = /(?<=(?<!\\)&lt;&lt;)(Req-\w+-?.+?)(?=&gt;&gt;)/
 RexRx = /(?<=&lt;&lt;)(Req-\w+-?.+?)(?=&gt;&gt;)/
 
 # TODO: consider a more performant way of matching the requirements here
@@ -152,16 +151,14 @@ Extensions.register do
     match RexRx
     process do |parent, target|
       id = target.sub(/^Req-/, '')
-      msg = ''
       fix = ''
+      linktext = ''
 
+      # if the target contains displaytext
       if target[/,/]
-        msg = target.match(/(?<=,).+/).to_s.strip
+        linktext = target.match(/(?<=,).+/).to_s.strip
         id = target.sub(/^Req-/, '').sub(/,.+/, '')
-        icon = '<i class="fa fa-info-circle" aria-hidden="true"></i>'
       end
-
-      displaytext = id
 
       $reqfixes.each do |fixid, file|
         next unless fixid == id
@@ -169,19 +166,18 @@ Extensions.register do
         break
       end
 
-      tooltip = if msg != ''
-                  "data-toggle=\"tooltip\" data-placement=\"top\" title=\"#{msg}\""
-                else
-                  ''
-                end
-
       fix = fix.sub(/^_/, '') if fix[/^_/]
       link = id.sub(/^Req-/, '')
       uri = "#{fix}.html##{link}"
       uri = "##{link}" if fix == ''
-      o = "<span class=\"label label-info\" #{tooltip}>"
-      c = '</span>'
-      (create_anchor parent, %(#{o} #{icon} #{displaytext}#{c}), type: :link, target: uri).convert
+
+      final_link = if linktext != ''
+                     linktext
+                   else
+                     "<span class=\"label label-info\">#{id}</span>"
+                end
+
+      (create_anchor parent, final_link, type: :link, target: uri).convert
     end
   end
 end
