@@ -14,7 +14,8 @@ Extensions.register do
       # Add pass characters here to prevent html character replacements for < > tags
       pass = '++++'
       attrs['name'] = 'requirement'
-      attrs['caption'] = 'Requirement: '
+      attrs['caption'] = ''
+      attrs['title'] = ''
       id = attrs['id']
       nl = ''
 
@@ -35,7 +36,7 @@ Extensions.register do
 <div class=\"panel-heading\">
 <h3 class=\"panel-title\" data-toc-skip>
 <a class=\"anchor\" href=\"##{id}\"></a>
-<a class=\"link\" href=\"##{id}\"><emphasis role=\"strong\">Requirement: #{id}:</emphasis> #{san_title} </a> (ver. #{attrs['version']})
+<a class=\"link\" href=\"##{id}\"><emphasis role=\"strong\">Requirement #{id}:</emphasis> #{san_title} </a> (ver. #{attrs['version']})
 </h3>
 </div>
 <div class=\"panel-body\">)
