@@ -1,4 +1,4 @@
-require_relative 'test_test_helper'
+require_relative 'test_helper'
 
 # require_relative 'test_convert_doc'
 require_relative 'test_definition_block'
