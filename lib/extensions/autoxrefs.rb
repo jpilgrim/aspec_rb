@@ -167,12 +167,12 @@ Extensions.register do
         if line[/\<\<(?!Req)(.+?)\>\>/]
           anchorfixes.each do |original, fix|
             next unless line[/\<\<#{original}(,.+?)?\>\>/]
-            line = line.sub(/\<\<#{original}(,.+?)?\>\>/, "icon:angle-double-up[] <<#{fix}>>")
+            line = line.sub(/\<\<#{original}(,.+?)?\>\>/, "\<\<#{fix}\>\>")
           end
         elsif line[/^(\=+\s+?\S+.+)/]
           line.delete!('`')
         elsif line[/^(\.\S\w+)/]
-          line.delete!('\*_')
+          line.delete!('\*_`')
         elsif line[/`.+`\s?::/]
           2.times { line.sub!(/`/, '') }
         end
