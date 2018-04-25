@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'asciidoctor/extensions' unless RUBY_ENGINE == 'opal'
+require 'asciidoctor/extensions'
 require_relative '../utils/utils'
 
 Asciidoctor::Extensions.register do

@@ -37,9 +37,7 @@ end
 
 jsonindex = %(<script>
 window.data = {
-
 #{json}
-
 };
 </script>)
 
