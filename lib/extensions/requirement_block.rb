@@ -24,7 +24,6 @@ Extensions.register do
         #    Also replacing special HTML entities:
         #    &quot; = "
         #    &amp;  = &
-        downcased_title = attrs['title'].downcase.tr(' ', '_').gsub('"', '&quot;')
         san_title = attrs['title'].gsub(/&/, '&amp;').delete('`').delete("'").delete('*')
       rescue Exception => msg
         puts msg

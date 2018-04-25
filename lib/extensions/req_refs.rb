@@ -15,7 +15,7 @@ $doclinks = []
 adoc_files = Dir.glob("#{$srcdir}/**/*.adoc")
 
 # Find a nicer way to initialize some arrays:
-ni_includes, includes, doclinksfix, docs, titles, mainchaps, xrefs = Array.new(8) { [] }
+ni_includes, includes, doclinksfix, docs, titles, mainchaps = Array.new(8) { [] }
 
 $reqfixes = []
 
@@ -141,14 +141,14 @@ $reqs.each do |rid, _line, path, _filename, _main, _chapter|
   end
 end
 
-RexRx = /(?<=&lt;&lt;)(Req-\w+-?.+?)(?=&gt;&gt;)/
+REX_RX = /(?<=&lt;&lt;)(Req-\w+-?.+?)(?=&gt;&gt;)/
 
 # TODO: consider a more performant way of matching the requirements here
 Extensions.register do
   inline_macro do
     named :reqlink
 
-    match RexRx
+    match REX_RX
     process do |parent, target|
       id = target.sub(/^Req-/, '')
       fix = ''

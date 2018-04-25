@@ -7,14 +7,12 @@ module Labels
   # @param attrs [Array] attributes passed by the inline macro
   # @return [String] the status and/or label to be displayed
   def self.getstatus(attrs)
-    status = attrs['status']
-    if status == ('done' || 'closed')
-      label = 'success'
-    elsif status == 'open'
-      label = 'warning'
+    if attrs['status'] == ('done' || 'closed')
+      'success'
+    elsif attrs['status'] == 'open'
+      'warning'
     else
-      status = 'unknown'
-      label = 'default'
+      'default'
     end
   end
 end

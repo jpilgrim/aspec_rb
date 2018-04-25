@@ -18,8 +18,7 @@ def create_header(arr, scripts, header)
     asset = IO.readlines(file).join.to_s
     scripts += "<script> #{asset} </script>\n"
   end
-  header += scripts
-  # scripts
+  header + scripts
 end
 
 def create_footer(arr, styles, footer)

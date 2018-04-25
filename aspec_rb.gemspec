@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   # This gem will work with 2.3 or greater.
-  spec.required_ruby_version = '>= 2.3'
+  spec.required_ruby_version = '>= 2.3.0'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})

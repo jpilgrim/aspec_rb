@@ -7,16 +7,14 @@ exts = "(\.adoc|\.md|\.html)"
 docsdir = 'chapters'
 
 title = nil
-chapter = nil
-doctitle = nil
 incs = []
 inc_reqs = []
 rows = []
 coms = []
 reqs = []
 
-CommentBlockRx = %r(^\/{4,}$)
-CommentLineRx = %r{^//(?=[^/]|$)}
+COMMENT_BLOCK_RX = %r(^\/{4,}$)
+COMMENT_LINE_RX = %r{^//(?=[^/]|$)}
 
 def trim(s)
   s.gsub!(/chapters\//, '')
@@ -32,8 +30,8 @@ adoc_files.each do |f|
   i = 0
   File.read(f).each_line do |li|
     i += 1
-    incommentblock ^= true if li[CommentBlockRx]
-    commented = true if li[CommentLineRx]
+    incommentblock ^= true if li[COMMENT_BLOCK_RX]
+    commented = true if li[COMMENT_LINE_RX]
 
     if li[/\[\s*req\s*,\s*id\s*=\s*\w+-?[0-9]+\s*,.*/]
       title.sub!(/^\./, '')
@@ -64,7 +62,7 @@ adoc_files.each do |f|
 end
 
 i = 0
-reqs.each do |req, f, title, chapter, doctitle|
+reqs.each do |req, f, title, _chapter, _doctitle|
   i += 1
   link = ''
   # TODO: - find better solution for sanitized titles:
@@ -83,10 +81,9 @@ reqs.each do |req, f, title, chapter, doctitle|
   end
 
   link = link.sub(/^_/, '') if link[/^_/]
-  f = f.sub(/^chapters\//, '')
+  f = f.sub(%r{^chapters\/}, '')
   icon = '<i class="fa fa-external-link-square" aria-hidden="true"></i>'
   ref = "<a class=\"link\" href=\"#{link}\"><emphasis role=\"strong\">#{icon} #{title}</emphasis>  </a>"
-  breadcrumb = "<a href=\"#{f}\">#{chapter} / #{doctitle}</a>"
   anchor = "<a class=\"link\" href=\"#Req-#{rid}\">#{rid}</a>"
   row = %(<tr id="Req-#{rid}"> <th scope="row">#{i}</th> <td style="white-space:pre;">#{anchor}</td>
   <td>#{version}</td> <td>#{ref}</td> <td>#{f}</td> </tr>)

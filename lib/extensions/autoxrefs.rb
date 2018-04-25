@@ -8,7 +8,7 @@ include ::Asciidoctor
 # Read from config file - do NOT hard code the srcdir
 $srcdir = 'chapters'
 
-AnchorRx = /\[\[(?:|([\w+?_:][\w+?:.-]*)(?:, *(.+))?)\]\]/
+ANCHOR_RX = /\[\[(?:|([\w+?_:][\w+?:.-]*)(?:, *(.+))?)\]\]/
 
 ni_includes, includes, doclinks, anchorfixes, intrachapter, interchapter, anchors, xrefs = Array.new(9) { [] }
 
@@ -33,7 +33,6 @@ adoc_files.each do |filename|
       # Handle multiple cross refs per line
       li.scan(/(?=\<\<(?!Req)(.+?)\>\>)/) do |xref|
         text = ''
-        target = ''
         xref = xref[0].to_s
         target = xref.gsub(/\s/, '-')
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Reads the index document and gathers info about includes etc.
 module Index
   def self.includes
     # From the index, create an array of the main chapters

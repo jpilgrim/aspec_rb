@@ -4,10 +4,6 @@ require 'asciidoctor/extensions'
 require_relative 'utils/labels'
 require_relative 'utils/block'
 
-include ::Asciidoctor
-
-prefix = ''
-
 # @example Basic Usage
 #   See task:101[] for details
 # @example Block Use
@@ -20,7 +16,6 @@ Extensions.register do
     named :task
 
     process do |parent, target, attrs|
-      pa = ''
       dest = target.match(/\w+-/).to_s.downcase if target[/-/]
       pattern = parent.document.attr 'task-pattern'
 
@@ -28,8 +23,8 @@ Extensions.register do
         next unless key[/^task_def_/]
         prefix = key.sub(/^task_def_/, '')
         next unless dest == prefix
-        type, tip, patt, icon, id = value.match(/^([^^]+)\;([^^]+)\;([^^]+)\;([^^]+)\;([^^]+)/).captures
-        patt.gsub!(/\/(\w+?-)?{.+?}/, '')
+        _type, _tip, patt, _icon, _id = value.match(/^([^^]+)\;([^^]+)\;([^^]+)\;([^^]+)\;([^^]+)/).captures
+        patt.gsub!(%r{\/(\w+?-)?{.+?}}, '')
         pattern = patt
       end
 
