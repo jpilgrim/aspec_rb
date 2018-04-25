@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 
 # Loads some static assets like scripts and html templates
@@ -7,7 +9,7 @@ class TocHelper
     Encoding.default_internal = Encoding::UTF_8
     @i = 0
     @prev_level = 0
-    @toc = %(<input type="text" id="pagesearch" onkeyup="search()" placeholder="Filter chapters" 
+    @toc = %(<input type="text" id="pagesearch" onkeyup="search()" placeholder="Filter chapters"
       style="margin-left: 18px;"><i class="fa fa-times" aria-hidden="true" style="display:none;"
        id="clear"></i> <ul class="nav" id="treeview">)
   end
@@ -18,7 +20,7 @@ class TocHelper
     appendices = []
     html_files = Dir.glob("#{gendir}/**/*.html")
     html_files.each do |file|
-      next if file == "search.html"
+      next if file == 'search.html'
       page = Nokogiri::HTML(open(file))
       filename = file.sub(%r{^#{gendir}\/}, '')
       # All Adoc files use a <h2> as  docname when sectnums attribute is enabled
@@ -37,7 +39,6 @@ class TocHelper
     sections.each do |sect, _title, filename|
       sect.each do |content|
         anchors.push([filename, content.attributes['id'].to_s, content.content.to_s, content.name.delete('h').to_i])
-
       end
     end
     anchors

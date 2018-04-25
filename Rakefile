@@ -1,8 +1,8 @@
 # frozen_string_literal: true
+
 require 'rubygems'
 require 'bundler/gem_tasks'
 require 'test/unit'
-
 
 task default: :test
 
