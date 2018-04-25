@@ -6,16 +6,9 @@ require_relative '../utils/utils'
 
 TOC_MARKER = '{{inject_toc}}'
 gendir = 'generated-docs' # do not hardcode
+
 scanned_dir = TocHelper.new.scan_gen_files(gendir)
-
-anchors = []
-
-# For each Section (HTML page), create an array of anchors
-scanned_dir.each do |sect, _title, filename|
-  sect.each do |content|
-    anchors.push([filename, content.attributes['id'].to_s, content.content.to_s, content.name.delete('h').to_i])
-  end
-end
+anchors = TocHelper.new.build_toc(scanned_dir)
 
 html_files.each do |fi|
   file = fi.sub(%r{#{gendir}\/}, '')
