@@ -1,28 +1,7 @@
-<!-- ************* Prism.js Syntax Highlighting ************* -->
-<script src="scripts/prism.js"></script>
-<script src="scripts/toc.js"></script>
+<!-- ************* Prism.js, toc, nav scripts ************* -->
 
-
+{{inject_scripts}}
 
 <!-- ************* Load MathJax via CDN ************* -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-<script type="text/javascript">
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
-
-    // Add the 'toclist' id for search function
-    $(".toc > ul").attr('id', 'toclist');
-    // Generate a Search input form
-    $("#toclist > li:first-of-type").before('<i id="clear" class="fa fa-times-circle-o"></i>');
-
-    // on page Load. check if list item has a class, if so, expand the shits
-    $("a").click(function() {
-        $(".active > ul > .collapse").collapse('show');
-    });
-
-    $( document ).ready(function() {
-        $(".active > ul > .collapse").collapse('show');
-    });
-</script>

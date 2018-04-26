@@ -18,7 +18,7 @@ module Context
     end
 
     url = "#{pattern}/#{target}"
- 
+
     html = if block
              if pattern == 'unknown'
                "<div style=\"float:right;padding-left:0.1em;\"><span class=\"label label-#{label}\" data-toggle=\"tooltip\" title=\"Missing config\">#{target}</span></div>"
