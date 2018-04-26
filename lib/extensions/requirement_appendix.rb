@@ -87,8 +87,8 @@ reqs.each do |req, f, title, chapter, doctitle|
   icon = '<i class="fa fa-external-link-square" aria-hidden="true"></i>'
   ref = "<a class=\"link\" href=\"#{link}\"><emphasis role=\"strong\">#{icon} #{title}</emphasis>  </a>"
   breadcrumb = "<a href=\"#{f}\">#{chapter} / #{doctitle}</a>"
-  anchor = "<a class=\"link\" href=\"#Req-#{rid}\">#{rid}</a>"
-  row = %(<tr id="Req-#{rid}"> <th scope="row">#{i}</th> <td style="white-space:pre;">#{anchor}</td>
+  # anchor = "<a class=\"link\" href=\"#Req-#{rid}\">#{rid}</a>"
+  row = %(<tr id="Req-#{rid}"> <th scope="row">#{i}</th> <td style="white-space:pre;">#{rid}</td>
   <td>#{version}</td> <td>#{ref}</td> <td>#{f}</td> </tr>)
 
   rows.push(row)
