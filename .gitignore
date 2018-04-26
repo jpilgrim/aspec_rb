@@ -2,3 +2,4 @@
 .DS_Store
 pkg/
 coverage
+test/sample_docs/generated-docs/
