@@ -15,7 +15,6 @@ Extensions.register do
       pass = '++++'
       attrs['name'] = 'requirement'
       attrs['caption'] = ''
-      attrs['title'] = ''
       id = attrs['id']
       nl = ''
 
@@ -45,6 +44,8 @@ Extensions.register do
       # concatenate all generated lines and prepend before the original content
       concat_lines = reader.lines.unshift(pass, alt, pass, nl)
       concat_lines.push(nl, pass, close, pass)
+
+      attrs['title'] = ''
 
       create_block parent, :open, concat_lines, attrs, content_model: :compound
     end
