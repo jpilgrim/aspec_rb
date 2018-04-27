@@ -28,7 +28,7 @@ class TestInlineTaskMacroProcessor < Test::Unit::TestCase
   def test_block_with_pattern
     input = ":task-pattern: example.com \ntask::123[]"
 
-    assert_equal("<div class=\"paragraph\">\n<p><div style=\"float:right;padding-left:0.1em;\"><a href=\"example.com/123\"><span class=\"label label-default\">123</span></a></div></p>\n</div>",
+    assert_equal("<div class=\"paragraph\">\n<p><div style=\"float:right;padding-left:0.1em;\"><a href=\"example.com/123\"><span class=\"label label-default task\">123</span></a></div></p>\n</div>",
                  Asciidoctor::Document.new(input).render)
   end
 

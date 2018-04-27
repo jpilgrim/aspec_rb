@@ -15,7 +15,7 @@ class TestInlineCwikiMacroProcessor < Test::Unit::TestCase
 
     assert_equal("<div class=\"paragraph\">\n<p><div style=\"float:"\
       'right;padding-left:0.1em;"><a href="http://www.example.org/'\
-      "topic\"><span class=\"label label-default\">topic</span></a></div></p>\n</div>",
+      "topic\"><span class=\"label label-default task\">topic</span></a></div></p>\n</div>",
                  Asciidoctor::Document.new(input).render)
   end
 

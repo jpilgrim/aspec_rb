@@ -24,7 +24,7 @@ module Context
              if pattern == 'unknown'
                "<div style=\"float:right;padding-left:0.1em;\"><span class=\"label label-#{label}\" data-toggle=\"tooltip\" title=\"Missing config\">#{target}</span></div>"
              else
-               "<div style=\"float:right;padding-left:0.1em;\"><a href=\"#{url}\"><span class=\"label label-#{label}\">#{target}</span></a></div>"
+               "<div style=\"float:right;padding-left:0.1em;\"><a href=\"#{url}\"><span class=\"label label-#{label} task\">#{target}</span></a></div>"
              end
            else
              if pattern == 'unknown'
