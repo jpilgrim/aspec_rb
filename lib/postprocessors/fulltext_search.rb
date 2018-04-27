@@ -49,7 +49,6 @@ end
 @json.gsub!(/\</, '&lt;')
 @json.gsub!(/\>/, '&gt;')
 
-puts @json
 jsonindex = %(<script>
 window.data = {
 
