@@ -3,38 +3,57 @@
 require 'nokogiri'
 require 'fileutils'
 require 'open-uri'
+require_relative '../extensions/utils/utils'
 
-json = ''
+@json = ''
 gendir = 'generated-docs' # TODO: - do not hardcode
-replacements = /"|\n|«|» |\s\s/
+replacements = /"|\n|«|» |\s+|\{|\}|…/
 
 html_files = Dir.glob("#{gendir}/**/*.html")
 
 html_files.each do |file|
-  # Skip the search results and index pages
   next if file == "#{gendir}/search.html" || file[%r{^#{gendir}\/index}]
 
   page = Nokogiri::HTML(open(file))
-  file.sub!(%r{^#{gendir}\/}, '')
+  url = file.sub!(%r{^#{gendir}\/}, '')
   slug = file.sub(/\.html$/, '')
+  title = page.css('h2').text
 
-  h2 = page.css('h2').text
-  text = page.css('p').text.gsub(replacements, ' ')
+  page.xpath("//div[@class='sect1']").each do |section|
+    if section.at_css('div.sect2')
 
-  content = %(
-  "#{slug}": {
-      "id": "#{slug}",
-      "title": "#{h2}",
-      "url": "#{file}",
-      "content": "#{text}"
-    },\n)
-  json += content
+      section.xpath("//div[@class='sect2']").each do |subsection|
+        if subsection.at_css('div.sect3')
+          title = subsection.at('h4').text
+          id = "\##{subsection.at('h4').attr('id')}"
+          sub_url = url + id
+          text = subsection.text.gsub(replacements, ' ')
+          @json += Search.add_to_index(sub_url, id, title, text)
+        else
+
+          title = subsection.at('h3').text
+          id = "\##{subsection.at('h3').attr('id')}"
+          sub_url = url + id
+          text = subsection.text.gsub(replacements, ' ')
+          @json += Search.add_to_index(sub_url, id, title, text)
+        end
+      end
+
+    else
+      text = section.xpath("//div[@class='sect1']").css('p').text.gsub(replacements, ' ')
+      @json += Search.add_to_index(url, slug, title, text)
+    end
+  end
 end
 
+@json.gsub!(/\</, '&lt;')
+@json.gsub!(/\>/, '&gt;')
+
+puts @json
 jsonindex = %(<script>
 window.data = {
 
-#{json}
+#{@json}
 
 };
 </script>)

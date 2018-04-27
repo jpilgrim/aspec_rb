@@ -89,7 +89,7 @@ reqs.each do |req, f, title, chapter, doctitle|
   breadcrumb = "<a href=\"#{f}\">#{chapter} / #{doctitle}</a>"
   # anchor = "<a class=\"link\" href=\"#Req-#{rid}\">#{rid}</a>"
   row = %(<tr id="Req-#{rid}"> <th scope="row">#{i}</th> <td style="white-space:pre;">#{rid}</td>
-  <td>#{version}</td> <td>#{ref}</td> <td>#{f}</td> </tr>)
+  <td><span class="badge badge-primary badge-pill">#{version}</span></td> <td>#{ref}</td> <td>#{f}</td> </tr>)
 
   rows.push(row)
 end
@@ -99,7 +99,7 @@ Asciidoctor::Extensions.register do
     process do |parent, _target, _attrs|
       content = %(<h2 id="requirements"><a class="anchor" href="#requirements"></a>
       <a class="link" href="#requirements">Requirements</a></h2>
-<div class="panel panel-default"> <div class="panel-heading"><h4>Requirements</h4></div>
+<div class="panel panel-default reqlist"> <div class="panel-heading"><h4>Requirements</h4></div>
 <table class="table"> <thead> <tr>
 <th>#</th> <th>ID</th><th>Version</th> <th>Title</th> <th>Source Document</th>
 </tr> </thead>
