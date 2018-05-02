@@ -87,8 +87,8 @@ reqs.each do |req, f, title, chapter, doctitle|
   icon = '<i class="fa fa-external-link-square" aria-hidden="true"></i>'
   ref = "<a class=\"link\" href=\"#{link}\"><emphasis role=\"strong\">#{icon} #{title}</emphasis>  </a>"
   breadcrumb = "<a href=\"#{f}\">#{chapter} / #{doctitle}</a>"
-  # anchor = "<a class=\"link\" href=\"#Req-#{rid}\">#{rid}</a>"
-  row = %(<tr id="Req-#{rid}"> <th scope="row">#{i}</th> <td style="white-space:pre;">#{rid}</td>
+  anchor = "<a class=\"link\" href=\"#Req-#{rid}\">#{rid}</a>"
+  row = %(<tr id="Req-#{rid}"> <th scope="row">#{i}</th> <td style="white-space:pre;">#{anchor}</td>
   <td><span class="badge badge-primary badge-pill">#{version}</span></td> <td>#{ref}</td> <td>#{f}</td> </tr>)
 
   rows.push(row)
@@ -97,16 +97,25 @@ end
 Asciidoctor::Extensions.register do
   block_macro :requirements do
     process do |parent, _target, _attrs|
-      content = %(<h2 id="requirements"><a class="anchor" href="#requirements"></a>
-      <a class="link" href="#requirements">Requirements</a></h2>
-<div class="panel panel-default reqlist"> <div class="panel-heading"><h4>Requirements</h4></div>
-<table class="table"> <thead> <tr>
+      content = %(<div class="panel panel-default reqlist"> <div class="panel-heading"><h4>Requirements</h4></div>
+      <input class="form-control" id="tableFilter" type="text" placeholder="Filter..">
+<table class="table" id="reqTable"> <thead> <tr>
 <th>#</th> <th>ID</th><th>Version</th> <th>Title</th> <th>Source Document</th>
 </tr> </thead>
 <tbody>
 #{rows.join}
 </tbody>
-</table> </div>)
+</table> </div>
+<script>
+$(document).ready(function(){
+  $("#tableFilter").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#reqTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>)
 
       create_pass_block parent, content, {}
     end
