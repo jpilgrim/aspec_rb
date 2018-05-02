@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    aspec_rb (0.0.12)
+    aspec_rb (0.0.13)
       asciidoctor
 
 GEM
