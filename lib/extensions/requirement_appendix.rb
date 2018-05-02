@@ -98,7 +98,7 @@ Asciidoctor::Extensions.register do
   block_macro :requirements do
     process do |parent, _target, _attrs|
       content = %(<div class="panel panel-default reqlist"> <div class="panel-heading"><h4>Requirements</h4></div>
-      <input class="form-control" id="tableFilter" type="text" placeholder="Filter..">
+<input class="form-control" id="tableFilter" type="text" placeholder="Filter..">
 <table class="table" id="reqTable"> <thead> <tr>
 <th>#</th> <th>ID</th><th>Version</th> <th>Title</th> <th>Source Document</th>
 </tr> </thead>
