@@ -10,6 +10,12 @@ gendir = 'generated-docs' # TODO: - do not hardcode
 
 html_files = Dir.glob("#{gendir}/**/*.html")
 
+def add_heading(subsection, url, level)
+  id = subsection.at(level).attr('id')
+  sub_url = url + '#' + id
+  @json += Search.add_to_index(sub_url, id, subsection.at(level).text, subsection.text)
+end
+
 html_files.each do |file|
   next if file == "#{gendir}/search.html" || file[%r{^#{gendir}\/index}]
 
@@ -19,29 +25,21 @@ html_files.each do |file|
   title = page.css('h2').text
 
   page.xpath("//div[@class='sect1']").each do |section|
-
     if section.at_css('div.sect2')
-      section.xpath("//div[@class='sect2' or @class='sect2 language-n4js']").each do |subsection|
 
+      section.xpath("//div[@class='sect2' or @class='sect2 language-n4js']").each do |subsection| 
         if subsection.at_css('div.sect3')
-          section.xpath("//div[@class='sect3']").each do |subsection|
 
+          section.xpath("//div[@class='sect3']").each do |subsection|  
             if subsection.at_css('div.sect4')
-              id = "\##{subsection.at('h5').attr('id')}"
-              sub_url = url + id
-              @json += Search.add_to_index(sub_url, id, subsection.at('h5').text, subsection.text)
-
+              add_heading(subsection, url, 'h5')
             else
-              id = "\##{subsection.at('h4').attr('id')}"
-              sub_url = url + id
-              @json += Search.add_to_index(sub_url, id, subsection.at('h4').text, subsection.text)
+              add_heading(subsection, url, 'h4')
             end
           end
 
         else
-          id = "\##{subsection.at('h3').attr('id')}"
-          sub_url = url + id
-          @json += Search.add_to_index(sub_url, id, subsection.at('h3').text, subsection.text)
+          add_heading(subsection, url, 'h3')
         end
       end
 
