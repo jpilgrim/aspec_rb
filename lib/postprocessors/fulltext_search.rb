@@ -27,10 +27,10 @@ html_files.each do |file|
   page.xpath("//div[@class='sect1']").each do |section|
     if section.at_css('div.sect2')
 
-      section.xpath("//div[@class='sect2' or @class='sect2 language-n4js']").each do |subsection| 
+      section.xpath("//div[@class='sect2' or @class='sect2 language-n4js']").each do |subsection|
         if subsection.at_css('div.sect3')
 
-          section.xpath("//div[@class='sect3']").each do |subsection|  
+          section.xpath("//div[@class='sect3']").each do |subsection|
             if subsection.at_css('div.sect4')
               add_heading(subsection, url, 'h5')
             else

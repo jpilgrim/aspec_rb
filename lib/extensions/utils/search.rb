@@ -2,7 +2,7 @@
 
 module Search
   # Some special handling for sanitizing the search json
-  def self.sanitize_json(str)  
+  def self.sanitize_json(str)
     special_chars = /"|\n|«|» |\{|\}|…/
     str.gsub!(special_chars, ' ')
     str.gsub!(/\s+/, ' ')
