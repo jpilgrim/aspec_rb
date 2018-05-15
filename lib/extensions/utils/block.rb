@@ -10,22 +10,23 @@ module Context
   # @param label [String] an optional status label, used to display if a task/issue is open or closed
   # @return [String] the raw HTML to be included in the target document
   def self.format(attributes, target, pattern, label)
-    block = false
-    block = true if attributes.key? 'block'
+    block = false unless attributes.key? 'block'
 
     if target[0] == "\:"
       block = true
       target[0] = ''
     end
-
+    
     url = "#{pattern}/#{target}"
-
     html = if block
              if pattern == 'unknown'
                "<div style=\"float:right;padding-left:0.1em;\"><span class=\"label label-#{label}\" data-toggle=\"tooltip\" title=\"Missing config\">#{target}</span></div>"
              else
                "<div style=\"float:right;padding-left:0.1em;\"><a href=\"#{url}\"><span class=\"label label-#{label} task\">#{target}</span></a></div>"
              end
+          elsif attributes[:version]
+            url = "search.html?q=Version+#{target}"
+            "<div style=\"float:right;padding-left:0.1em;\"><a href=\"#{url}\" class=\"btn btn-primary btn-sm active\" role=\"button\" aria-pressed=\"true\">Version <span class=\"badge\">#{target}</span></a></div>"
            else
              if pattern == 'unknown'
                "<span class=\"label label-#{label}\" data-toggle=\"tooltip\" title=\"Missing config\">#{target}</span>"
