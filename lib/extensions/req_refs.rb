@@ -56,7 +56,7 @@ adoc_files.each do |filename|
       child = li.match(/(?<=^include::).+?\.adoc(?=\[\])/).to_s
       child = child.sub(/^\{find\}/, '')
       childpath = "#{filename.sub(/[^\/]+?\.adoc/, '')}#{child}"
-      includes.push([filename, child, childpath])
+      includes.push([Sform.trim(filename), child, Sform.trim(childpath)])
 
     end
   end
@@ -105,20 +105,21 @@ end
 
 # TODO: - see if editing the array in-place is better using map!
 includes += ni_includes
+tempreqs = []
 
 # Edit the array of Requirements to point to the parent document *if* it is included.
 # TODO use a while loop, repeat until no changes made
 3.times do
   # initialize an array
-  tempreqs = []
+  tempreqs.clear
 
   # Loop through all includes, if the requirement is contained in an include,
   # edit the $reqs array to point to its parent instead
   includes.each do |parent, _child, childpath|
     # Delete the child req if matched
     $reqs.delete_if do |rid, line, path, _filename, main, chapter|
-      next unless Sform.trim(childpath) == Sform.trim(path)
-      tempreqs.push([rid, line, Sform.trim(parent), parent, main, chapter])
+      next unless childpath == path
+      tempreqs.push([rid, line, parent, parent, main, chapter])
       true
     end
   end
