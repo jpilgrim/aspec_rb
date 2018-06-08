@@ -1,4 +1,6 @@
-# frozen_string_literal: true
+require 'asciidoctor/extensions'
+
+include ::Asciidoctor
 
 # require_relative 'extensions/css_docinfo'
 require_relative 'extensions/autoxrefs'
@@ -13,7 +15,7 @@ require_relative 'extensions/requirement_block'
 require_relative 'extensions/source_block'
 require_relative 'extensions/todo_block'
 require_relative 'html_chunker'
-require 'asciidoctor-latex'
-# require 'asciidoctor-bibtex'
+# require 'asciidoctor-latex'
+require 'asciidoctor-bibtex'
 require_relative 'extensions/requirement_appendix'
 require_relative 'extensions/postprocessor'

@@ -87,20 +87,20 @@ class MultipageHtml5Converter
 
   def write(output, target)
     outdir = ::File.dirname target
-    puts '[CHUNKED HTML] Generating chapters:'
+    puts '[ASPEC] Generating chapters'
     @documents.each do |doc|
       filename = doc.attr 'docname'
       filename = filename.sub(/^_/, '')
       outfile = ::File.join outdir, %(#{filename}.html)
-      puts "[CHAPTER] #{outfile}"
       ::File.open(outfile, 'w') do |f|
         f.write doc.convert
       end
     end
-    puts "[HTML INDEX] Generating index at #{target}"
     ::File.open(target, 'w') do |f|
       f.write output
     end
+    puts '[ASPEC] Done'
+    puts "[ASPEC] Index generated at #{target}"
     load 'postprocessors/generate_toc.rb'
     load 'postprocessors/fulltext_search.rb'
   end
