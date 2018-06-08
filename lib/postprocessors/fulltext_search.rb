@@ -1,19 +1,17 @@
-# frozen_string_literal: true
-
 require 'nokogiri'
 require 'fileutils'
-require 'open-uri'
 require_relative '../extensions/utils/utils'
 
 @json = ''
 gendir = 'generated-docs' # TODO: - do not hardcode
 
 html_files = Dir.glob("#{gendir}/**/*.html")
+puts "[ASPEC] Creating full-text search index."
 
 def add_heading(subsection, url, level)
   id = subsection.at(level).attr('id')
   sub_url = url + '#' + id
-  @json += Search.add_to_index(sub_url, id, subsection.at(level).text, subsection.text)
+  @json << Search.add_to_index(sub_url, id, subsection.at(level).text, subsection.text)
 end
 
 html_files.each do |file|
@@ -27,25 +25,21 @@ html_files.each do |file|
   page.xpath("//div[@class='sect1']").each do |section|
     if section.at_css('div.sect2')
 
+      # consider xpath for multiple cases - be more specific in the query, dont have so many nested ifs
       section.xpath("//div[@class='sect2' or @class='sect2 language-n4js']").each do |subsection|
         if subsection.at_css('div.sect3')
 
           section.xpath("//div[@class='sect3']").each do |subsection|
-            if subsection.at_css('div.sect4')
-              add_heading(subsection, url, 'h5')
-            else
-              add_heading(subsection, url, 'h4')
-            end
+            add_heading(subsection, url, 'h4')
           end
 
         else
           add_heading(subsection, url, 'h3')
         end
       end
-
     else
       text = section.xpath("//div[@class='sect1' or @class='sect1 language-n4js']").css('p').text
-      @json += Search.add_to_index(url, slug, title, text)
+      @json << Search.add_to_index(url, slug, title, text)
     end
   end
 end
@@ -67,3 +61,5 @@ filtered_data = data.sub(marker, jsonindex)
 File.open(searchpage, 'w') do |f|
   f.write(filtered_data)
 end
+
+puts "[ASPEC] Full-text search index built."

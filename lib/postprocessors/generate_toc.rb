@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'nokogiri'
 require 'open-uri'
 
@@ -25,9 +23,8 @@ appendices = []
 
 html_files.each do |file|
   next if file == "#{gendir}/search.html" || file[%r{^#{gendir}\/index}]
-  if file == "#{gendir}/revision_history.html"
-    toc += %(<li><a href="revision_history.html">Revision History</a></li>)
-  end
+  toc << %(<li><a href="revision_history.html">Revision History</a></li>) if file == "#{gendir}/revision_history.html"
+
   page = Nokogiri::HTML(open(file))
   filename = file.sub(%r{^#{gendir}\/}, '')
 
@@ -78,7 +75,7 @@ anchors.each do |file, id, text, level|
   if level > prev_level
     if i != 0
       toc = toc.chomp("</li>\n")
-      toc += " <a href=\"#\" data-toggle=\"collapse\" data-target=\"#tocnav_#{id}\"><i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i></a><ul>
+      toc << " <a href=\"#\" data-toggle=\"collapse\" data-target=\"#tocnav_#{id}\"><i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i></a><ul>
       <div id=\"tocnav_#{id}\" class=\"collapse\">
       <li><a href=\"#{file}##{id}\">#{text}</a></li>\n"
       li = ''
@@ -87,16 +84,17 @@ anchors.each do |file, id, text, level|
   # Close nested <ul> elements
   elsif level < prev_level
     diff = prev_level - level
-    diff.times { toc += "</div></ul>\n" }
+    diff.times { toc << "</div></ul>\n" }
   end
+
   i += 1
-  toc += li
+  toc << li
   # assign a variable with current level to compare in next iteration
   prev_level = level
 end
 
 # Close the toc
-toc += '</ul>'
+toc << '</ul>'
 
 html_files.each do |fi|
   file = fi.sub(%r{#{gendir}\/}, '')

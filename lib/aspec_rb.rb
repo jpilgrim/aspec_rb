@@ -1,4 +1,6 @@
-# frozen_string_literal: true
+require 'asciidoctor/extensions'
+
+include ::Asciidoctor
 
 # require_relative 'extensions/css_docinfo'
 require_relative 'extensions/autoxrefs'

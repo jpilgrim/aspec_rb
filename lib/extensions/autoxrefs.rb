@@ -12,6 +12,7 @@ AnchorRx = /\[\[(?:|([\w+?_:][\w+?:.-]*)(?:, *(.+))?)\]\]/
 
 ni_includes, includes, doclinks, anchorfixes, intrachapter, interchapter, anchors, xrefs = Array.new(9) { [] }
 
+# Don't do this!
 adoc_files = Dir.glob("#{$srcdir}/**/*.adoc")
 
 indexincludes = Index.includes
@@ -41,6 +42,8 @@ adoc_files.each do |filename|
           target = xref.gsub(/,.+/, '')
           text = xref.gsub(/.+,/, '').lstrip
           xref = xref.sub(/,.+/, '')
+        elsif xref[/^SC_ROPR/]
+          text = xref
         else
           text = Sform.titleify(xref).strip
         end
@@ -78,7 +81,7 @@ adoc_files.each do |filename|
       child = li.match(/(?<=^include::).+?\.adoc(?=\[\])/).to_s
       child = child.sub(/^\{find\}/, '')
       childpath = "#{filename.sub(/[^\/]+?\.adoc/, '')}#{child}"
-      includes.push([filename, child, childpath])
+      includes.push([Sform.trim(filename), child, Sform.trim(childpath)])
 
     end
   end
@@ -92,6 +95,7 @@ adoc_files.each do |filename|
   end
 end
 
+
 # For each main include, store a target link
 anchors.each do |_anchor, full, _filename, link, chapter, main, h1|
   next unless main && h1
@@ -99,8 +103,9 @@ anchors.each do |_anchor, full, _filename, link, chapter, main, h1|
   doclinks.push([doc, link, chapter])
 end
 
-# If a section title has an overriding anchor on the previous line, perform the following fix
 o_anchors = []
+
+# If a section title has an overriding anchor on the previous line, perform the following fix
 doclinks.delete_if do |doc, _link, mchapter|
   topleveldoc = "#{$srcdir}/#{mchapter}/#{doc}.adoc"
   lines = File.foreach(topleveldoc).first(10).join
@@ -113,27 +118,15 @@ end
 doclinks += o_anchors
 doclinks.uniq!
 
-# Edit the array of Anchors to point to the parent document *if* it is included.
-# TODO use a while loop, repeat until no changes made
-tempanchors = []
-3.times do
-  tempanchors.clear
-
-  # Loop through all includes, if the anchor is contained in an include,
-  # edit the anchors array to point to its parent instead
-  includes.each do |parent, _child, childpath|
-    anchors.delete_if do |anchor, path, filename, text, chapter, main, _h1|
-      next unless Sform.trim(childpath) == Sform.trim(filename)
-      tempanchors.push([anchor, path, Sform.trim(parent), text, chapter, main])
-      true
-    end
-  end
-
-  anchors += tempanchors
-  anchors.uniq!
+includes.each do |parent, _child, childpath|
+  anchors.map! { |anchor, path, filename, text, chapter, main, _h1|
+    filename = parent if childpath == path
+    [anchor, path, filename, text, chapter, main, _h1]
+  }
 end
 
-tempanchors.clear
+anchors.uniq!
+tempanchors = []
 
 anchors.delete_if do |anchor, apath, trim_parent, parent, amain, achapter|
   doclinks.each do |doc, link, dchapter|
@@ -143,6 +136,8 @@ anchors.delete_if do |anchor, apath, trim_parent, parent, amain, achapter|
   end
 end
 
+
+tempanchors.uniq!
 anchors += tempanchors
 anchors.uniq!
 
@@ -155,7 +150,7 @@ xrefs.each do |xref, xpath, _xfilename, _xtext, xtarget, _xchapter|
     afilename = '' if xpath == apath
     # xtext = xref if xtext.empty?
     afilename.sub!(/^_/, '') if afilename[/^_/]
-    fix = "#{afilename}##{atext},#{xtarget}"
+    fix = "#{afilename}##{atext},#{_xtext}"
     anchorfixes.push([anchor, fix, xref])
   end
 end
@@ -163,7 +158,9 @@ end
 Extensions.register do
   preprocessor do
     process do |_document, reader|
-      Reader.new reader.readlines.map { |line|
+      # return reader if reader.eof?
+      
+      replacement_lines = reader.read_lines.map do |line|
         if line[/\<\<(?!Req)(.+?)\>\>/]
           anchorfixes.each do |original, fix|
             next unless line[/\<\<#{original}(,.+?)?\>\>/]
@@ -177,7 +174,9 @@ Extensions.register do
           2.times { line.sub!(/`/, '') }
         end
         line
-      }
+      end
+      reader.unshift_lines replacement_lines
+      reader
     end
   end
 end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Search
   # Some special handling for sanitizing the search json
   def self.sanitize_json(str)
