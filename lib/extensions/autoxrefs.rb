@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'asciidoctor/extensions'
-require 'benchmark'
 require_relative 'utils/utils'
 
 include ::Asciidoctor
