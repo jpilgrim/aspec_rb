@@ -118,15 +118,24 @@ end
 doclinks += o_anchors
 doclinks.uniq!
 
-includes.each do |parent, _child, childpath|
-  anchors.map! { |anchor, path, filename, text, chapter, main, _h1|
-    filename = parent if childpath == path
-    [anchor, path, filename, text, chapter, main, _h1]
-  }
-end
-
-anchors.uniq!
+# Edit the array of Anchors to point to the parent document *if* it is included.
+# TODO use a while loop, repeat until no changes made
 tempanchors = []
+3.times do
+  tempanchors.clear
+
+  # Loop through all includes, if the anchor is contained in an include,
+  # edit the anchors array to point to its parent instead
+  includes.each do |parent, _child, childpath|
+    anchors.delete_if do |anchor, path, filename, text, chapter, main, _h1|
+      next unless Sform.trim(childpath) == Sform.trim(filename)
+      tempanchors.push([anchor, path, Sform.trim(parent), text, chapter, main])
+      true
+    end
+  end
+  anchors += tempanchors
+  anchors.uniq!
+end
 
 anchors.delete_if do |anchor, apath, trim_parent, parent, amain, achapter|
   doclinks.each do |doc, link, dchapter|
