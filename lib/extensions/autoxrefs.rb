@@ -19,19 +19,18 @@ adoc_files = Dir.glob("#{$srcdir}/**/*.adoc")
 
 indexincludes = Index.includes
 
-adoc_files.each do |filename|
-  main = false
+# Scan adoc files and store some arrays of xrefs and anchors
+adoc_files.each do |filename, main=false|
   path = Sform.trim(filename)
   chapter = path.match(/.+?(?=\/)/).to_s
 
-  # Add a switch if the current document is an include within the index.adoc
-  indexincludes.each do |inc|
-    main = true if inc == filename
-  end
+  # If the current document is an include within the index.adoc
+  indexincludes.each { |inc| main = true if inc == filename }
 
   File.read(filename).each_line do |li|
     h1 = false
 
+    # Look for xrefs
     if li[XrefRx]
       # Handle multiple cross refs per line
       li.scan(/(?=\<\<(?!Req)(.+?)\>\>)/) do |xref|
@@ -80,7 +79,7 @@ adoc_files.each do |filename|
 
       anchors.push([anchor, path, filename, text, chapter, main, h1, true])
 
-    # Match for sub includes
+    # Match for includes
     elsif li[IncludeDirectiveRx]
       child = li.match(/(?<=^include::).+?\.adoc(?=\[\])/).to_s
       child = child.sub(/^\{find\}/, '')
@@ -93,7 +92,7 @@ adoc_files.each do |filename|
   end
 end
 
-# Create array of non-indexed includes
+# Create array of non-index includes
 adoc_files.each do |filename|
   includes.each do |parent, child, childpath, trim_childpath, trim_parent|
     next unless childpath == filename
@@ -101,7 +100,8 @@ adoc_files.each do |filename|
   end
 end
 
-# For each main include, store a target link
+# For each "main" include, store a target link
+# This is where the generated HTML for each chapter will live
 anchors.each do |_anchor, full, _filename, link, chapter, main, h1|
   next unless main && h1
   doc = full.gsub(/^#{chapter}\//, '')
@@ -122,8 +122,7 @@ end
 doclinks += o_anchors
 doclinks.uniq!
 
-# Edit the array of Anchors to point to the parent document *if* it is included.
-# TODO use a while loop, repeat until no changes made
+# Edit the array of Anchors to point to the parent document if it is included.
 tempanchors = []
 3.times do
   tempanchors.clear
@@ -132,7 +131,8 @@ tempanchors = []
   # edit the anchors array to point to its parent instead
   includes.each do |parent, _child, childpath, trim_childpath, trim_parent|
     anchors.delete_if do |anchor, path, filename, text, chapter, main, _h1|
-      # remove string operations inside iterators
+      # TODO - this is a huge bottleneck!
+      # remove string operations inside iterators!!!
       next unless trim_childpath == Sform.trim(filename)
       tempanchors.push([anchor, path, trim_parent, text, chapter, main])
       true
@@ -141,6 +141,7 @@ tempanchors = []
 
   anchors += tempanchors
   anchors.uniq!
+  
 end
 
 tempanchors.clear
@@ -158,21 +159,19 @@ anchors.uniq!
 
 # For all requirements, check which chapter they should finally be in with includes catered for
 # match with a main document name - should be a main chapter title
-xrefs.each do |xref, xpath, _xfilename, _xtext, xtarget, _xchapter|
+xrefs.each do |xref, xpath, _xfilename, xtext, xtarget, _xchapter|
   anchors.each do |anchor, apath, afilename, atext, _achapter, _amain, _h1|
     next unless xref == anchor
     # if in same chapter, dont link to other HTML file
     afilename = '' if xpath == apath
     # xtext = xref if xtext.empty?
     afilename.sub!(/^_/, '') if afilename[/^_/]
-    fix = "#{afilename}##{atext},#{xtarget}"
+    fix = "#{afilename}##{atext},#{xtext}"
     anchorfixes.push([anchor, fix, xref])
   end
 end
 
 anchorfixes.uniq!
-
-puts anchorfixes.length
 
 Extensions.register do
   preprocessor do
